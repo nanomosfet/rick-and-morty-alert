@@ -21,7 +21,7 @@ def write_log(s):
 root = ET.fromstring(read_feed())
 write_log("Starting search")
 end_flag = False
-while True:
+while not end_flag:
     time.sleep(30)
     root = ET.fromstring(read_feed())
     for item in root.findall('channel/item'):
@@ -37,5 +37,3 @@ while True:
                     'request' : 'rick'
                 })
             break
-    if end_flag:
-        break
