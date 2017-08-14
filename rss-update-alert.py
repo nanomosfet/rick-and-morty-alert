@@ -20,13 +20,15 @@ def write_log(s):
 
 root = ET.fromstring(read_feed())
 write_log("Starting search")
+end_flag = False
 while True:
     time.sleep(30)
     root = ET.fromstring(read_feed())
     for item in root.findall('channel/item'):
         title = item.find('title').text
-        if 'Rick and Morty' and 'S03E04' in title:
+        if 'Rick and Morty' in title and 'S03E04' in title:
             write_log("Found Morty")
+            end_flag = True
             r = requests.post(
                 'http://timothy-z-searcy.com/email_form',
                 data={
@@ -35,3 +37,5 @@ while True:
                     'request' : 'rick'
                 })
             break
+    if end_flag:
+        break
